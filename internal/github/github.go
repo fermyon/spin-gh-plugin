@@ -72,7 +72,7 @@ func isLanguageInUse(apps []*spinapp.App, lang spinapp.Language) bool {
 func getActionFile(options RenderActionOptions) (*os.File, error) {
 	if !options.Overwrite {
 		if _, err := os.Stat(options.Output); err == nil {
-			return nil, fmt.Errorf("pass --force to overwrite an existing GitHub Action file")
+			return nil, fmt.Errorf("pass --overwrite to overwrite an existing GitHub Action file")
 		}
 	}
 	if _, err := os.Stat(options.Output); err == nil {
