@@ -1,0 +1,59 @@
+name: "{{ .ActionName }}"
+on:
+  push:
+    branches:
+      - "{{ .TargetBranch }}"
+env:
+  RUST_VERSION: "{{ .ToolVersions.Rust }}"
+  GO_VERSION: "{{ .ToolVersions.Go}}"
+  TINYGO_VERSION: "{{ .ToolVersions.TinyGo }}"
+  NODE_VERSION: "{{ .ToolVersions.Node }}"
+  PYTHON_VERSION: "{{ .ToolVersions.Python}}"
+  SPIN_VERSION: "{{ .ToolVersions.Spin }}"
+jobs:
+  spin:
+    runs-on: "{{ .OperatingSystem }}"
+    name: Build Spin App
+    steps:
+      - uses: actions/checkout@v4
+{{- if .Go}}
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "{{ `${{ env.GO_VERSION }}` }}"
+      - name: Install TinyGo
+        uses: rajatjindal/setup-actions/tinygo@v0.0.1
+        with:
+          version: "{{ `${{ env.TINYGO_VERSION }}` }}"
+{{- end }}
+{{- if .Rust }}
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "{{ `${{ env.RUST_VERSION }}` }}"
+          targets: wasm32-wasi
+{{- end }}
+{{- if .JavaScript }}
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "{{ `${{ env.NODE_VERSION }}` }}"
+{{- end }}
+{{- if .Python }}
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "{{ `${{ env.PYTHON_VERSION }}` }}"
+{{- end}}
+      - name: Install Spin
+        uses: fermyon/actions/spin/setup@v1
+        with:
+{{- if ne .ToolVersions.Spin "" }}
+          version: "{{ `${{ env.SPIN_VERSION }}` }}"
+{{- end }}
+          plugins: {{ .SpinPlugins }}
+{{- range .SpinApps}}
+      - name: Build {{ .Name }}
+        run: spin build
+        working-directory: {{ .Path }}
+{{- end}}
