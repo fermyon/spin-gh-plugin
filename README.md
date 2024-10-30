@@ -18,7 +18,7 @@ spin plugin install gh
 The `canary` release of the `gh` represents the most recent commits on `main` and may not be stable, with some features still in progress.
 
 ```sh
-spin plugins install --url https://github.com/ThorstenHans/spin-github-plugin/releases/download/canary/gh.json
+spin plugins install --url https://github.com/ThorstenHans/spin-gh-plugin/releases/download/canary/gh.json
 ```
 
 ## Install from a local build
