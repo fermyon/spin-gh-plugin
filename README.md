@@ -33,4 +33,63 @@ spin pluginify --install
 
 # Usage
 
+## The `create-action` command
+
+To create a new GitHub Action for your Spin App(s), execute the following command:
+
+```bash
+spin gh create-action
+```
+
+### Arguments & Flags
+
+The `create-action` command accepts a bunch of commands that you can use to customize its behavior:
+
+#### GitHub Action Triggers
+
+| Argument | Alias | Description | Default |
+|----------|-------|-------------|---------|
+| `ci` | | Run GitHub Action for every push on the specified branch (CI) | `main` |
+| `cron` | | Run GitHub Action on a Cron Schedule | |
+| `pr` | | Run GitHub Action for every PR targeting the specified branch | |
+| `manual` | | Run GitHub Action on manual dispatch | `false` |
+
+
+#### Tool Versions
+
+You can use the following arguments to customize versions installed as part of the GitHub Action
+
+| Argument | Alias | Description | Default |
+|----------|-------|-------------|---------|
+| `spin-version` | | Pin the Spin Version | latest stable release |
+| `rust-version` | | Pin the Rust Version | `1.80.1` |
+| `go-version` | | Pin the Go Version | `1.23.2` |
+| `tinygo-version` | | Pin the TinyGo Version | `0.33.0` |
+| `node-version` | | Pin the Node.js Version | `22` |
+| `python-version` | | Pin the Python Version | `3.13.0` |
+
+#### General GitHub Action customization
+
+| Argument | Alias | Description | Default |
+|----------|-------|-------------|---------|
+| `env` | | Specify Environment Variables (format key=value) | |
+| `name` | `n` | Specify the name of the GitHub Action | `CI` |
+| `plugin` | `p` | Specify Spin Plugins that should be installed | |
+| `os` | | Specify the operating system | `ubuntu-latest` |
+
+### Render Options
+
+| Argument | Alias | Description | Default |
+|----------|-------|-------------|---------|
+| `output` | `o` | Output path | `./github/workflows/ci.yaml` |
+| `dry-run` | | Print GitHub Action yaml to `stdout` | `false` |
+| `overwrite` | | Overwrite the output if it exists | `false` |
+| `template` | `t` | Provide a custom template | |
+
+## The `eject` command
+
+TBD
+
+### Template Variables
+
 TBD
