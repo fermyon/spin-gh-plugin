@@ -1,5 +1,7 @@
 # Spin GitHub Plugin
 
+[![Release](https://github.com/ThorstenHans/spin-gh-plugin/actions/workflows/release.yaml/badge.svg)](https://github.com/ThorstenHans/spin-gh-plugin/actions/workflows/release.yaml)
+
 This is a plugin that generates GitHub Actions for your Spin Apps.
 
 # Installation
