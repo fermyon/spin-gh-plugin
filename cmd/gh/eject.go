@@ -2,6 +2,7 @@ package gh
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -18,17 +19,17 @@ var ejectCmd = &cobra.Command{
 		if output != "" {
 			if !overwrite {
 				if _, err := os.Stat(output); err == nil {
-					fmt.Printf("File %s already exists. Use --overwrite to overwrite it.\n", output)
+					log.Fatalf("File %s already exists. Use --overwrite to overwrite it.\n", output)
 					return
 				}
 			}
 			err := os.WriteFile(output, []byte(template), 0644)
 			if err != nil {
-				fmt.Printf("Failed to write to file %s: %v\n", output, err)
-				return
+				log.Fatalf("Failed to write to file %s: %v\n", output, err)
 			}
-			fmt.Printf("Template written to %s\n", output)
+			log.Printf("Template written to %s\n", output)
 		}
+		// output was empty -> print to STDOUT
 		fmt.Println(template)
 	},
 }

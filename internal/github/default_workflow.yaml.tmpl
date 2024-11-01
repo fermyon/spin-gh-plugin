@@ -1,0 +1,93 @@
+name: "{{ .ActionName }}"
+on:
+{{- if ne .ActionTriggers.Push "" }}
+  push:
+    branches:
+      - "{{ .ActionTriggers.Push }}"
+{{- end }}
+{{- if .ActionTriggers.ManualDispatch }}
+  workflow_dispatch:
+{{- end }}
+{{- if ne .ActionTriggers.Schedule "" }}
+  schedule:
+    - cron: "{{ .ActionTriggers.Schedule }}"
+{{- end }}
+{{- if ne .ActionTriggers.PullRequest "" }}
+  pull_request:
+    branches:
+      - "{{ .ActionTriggers.PullRequest }}"
+{{- end }}
+env:
+  RUST_VERSION: "{{ .Tools.Rust }}"
+  GO_VERSION: "{{ .Tools.Go}}"
+  TINYGO_VERSION: "{{ .Tools.TinyGo }}"
+  NODE_VERSION: "{{ .Tools.Node }}"
+  PYTHON_VERSION: "{{ .Tools.Python}}"
+  SPIN_VERSION: "{{ .Tools.Spin }}"
+  {{- range .EnvironmentVariables }}
+  {{ .Key }}: "{{ .Value }}"
+  {{- end }}
+jobs:
+  spin:
+    runs-on: "{{ .OperatingSystem }}"
+    name: Build Spin App
+    steps:
+      - uses: actions/checkout@v4
+{{- if .Go }}
+      - name: Install Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "{{ `${{ env.GO_VERSION }}` }}"
+      - name: Install TinyGo
+        uses: rajatjindal/setup-actions/tinygo@v0.0.1
+        with:
+          version: "{{ `${{ env.TINYGO_VERSION }}` }}"
+{{- end }}
+{{- if .Rust }}
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "{{ `${{ env.RUST_VERSION }}` }}"
+          targets: wasm32-wasi
+{{- end }}
+{{- if .JavaScript }}
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "{{ `${{ env.NODE_VERSION }}` }}"
+{{- end }}
+{{- if .Python }}
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "{{ `${{ env.PYTHON_VERSION }}` }}"
+{{- end }}
+      - name: Install Spin
+        uses: fermyon/actions/spin/setup@v1
+        with:
+{{- if ne .ToolVersions.Spin "" }}
+          version: "{{ `${{ env.SPIN_VERSION }}` }}"
+{{- end }}
+          plugins: {{ .SpinPlugins }}
+{{- range .SpinApps }}
+  {{- if ne .Setup "" }}
+      - name: Executing Setup Commands for {{ .Name }}
+        run: {{ .Setup }}
+        working-directory: {{ .Path }}
+  {{- end }}
+  {{- range .Components }}
+    {{- if ne .InstallDependenciesCommand "" }}
+      - name: Component Dependency Installation
+        run: {{ .InstallDependenciesCommand }}
+        working-directory: {{ .Path }}
+    {{- end }}
+  {{- end }}
+      - name: Build {{ .Name }}
+        run: spin build
+        working-directory: {{ .Path }}
+  {{- if ne .Teardown "" }}
+      - name: Executing Teardown Commands for {{ .Name }}
+        run: {{ .Teardown }}
+        working-directory: {{ .Path }}
+  {{- end }}
+{{- end}}
