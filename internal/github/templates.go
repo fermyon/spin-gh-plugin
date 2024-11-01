@@ -35,30 +35,30 @@ type templateData struct {
 	OperatingSystem      string
 	Python               bool
 	Rust                 bool
-	SpinApps             []spinAppMetadata
+	SpinApps             []spinAppTemplateData
 	SpinPlugins          string
 	TargetBranch         string
 	Tools
 	ActionTriggers
 }
 
-type spinAppMetadata struct {
-	Components []componentMetadata
+type spinAppTemplateData struct {
+	Components []componentTemplateData
 	Name       string
 	Path       string
 	Setup      string
 	Teardown   string
 }
 
-type componentMetadata struct {
+type componentTemplateData struct {
 	Language                   string
 	InstallDependenciesCommand string
 	Path                       string
 }
 
-func newComponentMetadata(lang string, path string) componentMetadata {
+func newComponentMetadata(lang string, path string) componentTemplateData {
 
-	return componentMetadata{
+	return componentTemplateData{
 		InstallDependenciesCommand: spinapp.GetInstallDependenciesByLang(lang),
 		Language:                   lang,
 		Path:                       path,
@@ -66,13 +66,13 @@ func newComponentMetadata(lang string, path string) componentMetadata {
 
 }
 
-func newSpinAppMetadata(apps []*spinapp.App, setupCmds []string, teardownCmds []string) []spinAppMetadata {
-	res := make([]spinAppMetadata, len(apps))
+func newSpinAppMetadata(apps []*spinapp.App, setupCmds []string, teardownCmds []string) []spinAppTemplateData {
+	res := make([]spinAppTemplateData, len(apps))
 	for idx, app := range apps {
-		am := spinAppMetadata{
+		am := spinAppTemplateData{
 			Name:       app.GetName(),
 			Path:       app.GetLocation(),
-			Components: []componentMetadata{},
+			Components: []componentTemplateData{},
 			Setup:      strings.Join(setupCmds, " && "),
 			Teardown:   strings.Join(teardownCmds, " && "),
 		}
