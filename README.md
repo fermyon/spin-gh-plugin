@@ -100,7 +100,7 @@ Alternatively, you can write it to a file using the `output` (short `o`) and the
 spin gh eject -o ci.yaml --overwrite
 ```
 
-### Template Data
+## Template Data
 
 The following table lists the data passed to the template as part of the `create-action` command:
 
@@ -119,7 +119,7 @@ The following table lists the data passed to the template as part of the `create
 | `Python` | `bool` | Indicates if any Spin App or Component is built with Python | `true` |
 | `SpinApps` | `[]spinAppTemplateData` | Information for every Spin App discovered | See SpinAppTemplateData section below |
 
-#### ActionTriggers
+### ActionTriggers
 
 | Field | DataType | Description | Sample Value |
 |-------|----------|-------------|--------------|
@@ -128,14 +128,14 @@ The following table lists the data passed to the template as part of the `create
 | `PullRequest` | `string` | trigger for PRs targeting the specified branch | `main` |
 | `Push` | `string` | trigger for every push on the specified branch | `main` |
 
-#### EnvVar
+### EnvVar
 
 | Field | DataType | Description | Sample Value |
 |-------|----------|-------------|--------------|
 | `Key` | `string` | Name of the environment variable | `FOO` |
 | `Value` | `string` | Name of the environment variable | `bar` |
 
-#### Tools
+### Tools
 
 | Field | DataType | Description | Sample Value |
 |-------|----------|-------------|--------------|
@@ -146,7 +146,7 @@ The following table lists the data passed to the template as part of the `create
 | `Node` | `string` | Desired Rust Version | `22` |
 | `Spin` | `string` | Desired Rust Version | `2.7.0` |
 
-#### SpinAppTemplateData
+### SpinAppTemplateData
 
 | Field | DataType | Description | Sample Value |
 |-------|----------|-------------|--------------|
@@ -156,7 +156,7 @@ The following table lists the data passed to the template as part of the `create
 | `Teardown` | `string` | Name of the Spin App | `deactivate` |
 | `Components` | `[]componentTemplateData` | Information for every Component of the App | See ComponentTemplateData section below |
 
-#### ComponentTemplateData
+### ComponentTemplateData
 
 | Field | DataType | Description | Sample Value |
 |-------|----------|-------------|--------------|
