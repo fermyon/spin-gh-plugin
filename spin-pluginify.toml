@@ -1,5 +1,6 @@
 name = "gh"
-version = "0.0.1"
+description = "Generates GitHub Actions for Spin Apps"
+version = "0.0.2"
 spin_compatibility = ">=1.0"
 license = "Apache-2.0"
 package = "gh"
