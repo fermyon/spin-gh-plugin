@@ -3,9 +3,9 @@ package gh
 import (
 	"log"
 
+	"github.com/fermyon/spin-gh-plugin/internal/detective"
+	gh "github.com/fermyon/spin-gh-plugin/internal/github"
 	"github.com/spf13/cobra"
-	"github.com/thorstenhans/spin-gh-plugin/internal/detective"
-	gh "github.com/thorstenhans/spin-gh-plugin/internal/github"
 )
 
 type CreateActionOptions struct {

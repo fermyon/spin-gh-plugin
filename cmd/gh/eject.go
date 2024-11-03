@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
+	gh "github.com/fermyon/spin-gh-plugin/internal/github"
 	"github.com/spf13/cobra"
-	gh "github.com/thorstenhans/spin-gh-plugin/internal/github"
 )
 
 var output string

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"text/template"
 
-	"github.com/thorstenhans/spin-gh-plugin/internal/spinapp"
+	"github.com/fermyon/spin-gh-plugin/internal/spinapp"
 )
 
 type RenderActionOptions struct {

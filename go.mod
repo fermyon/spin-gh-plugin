@@ -1,4 +1,4 @@
-module github.com/thorstenhans/spin-gh-plugin
+module github.com/fermyon/spin-gh-plugin
 
 go 1.23.2
 

@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/thorstenhans/spin-gh-plugin/cmd/gh"
+	"github.com/fermyon/spin-gh-plugin/cmd/gh"
 )
 
 func init() {
