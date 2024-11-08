@@ -87,7 +87,6 @@ func newSpinAppMetadata(apps []*spinapp.App, setupCmds []string, teardownCmds []
 
 func buildTemplateData(options RenderActionOptions) templateData {
 	allPlugins := options.Plugins
-	fmt.Printf("%v", len(allPlugins))
 	appSetup := []string{}
 	appTeardown := []string{}
 	var rust, golang, js, py bool

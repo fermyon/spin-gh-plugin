@@ -39,6 +39,7 @@ func FindAllSpinApps() []*spinapp.App {
 		}
 		return nil
 	})
+	log.Println("")
 	if err != nil {
 		return make([]*spinapp.App, 0)
 	}
