@@ -18,11 +18,19 @@ on:
       - "{{ .ActionTriggers.PullRequest }}"
 {{- end }}
 env:
+{{- if .Rust }}
   RUST_VERSION: "{{ .Tools.Rust }}"
+{{- end }}
+{{- if .Go }}
   GO_VERSION: "{{ .Tools.Go}}"
   TINYGO_VERSION: "{{ .Tools.TinyGo }}"
+{{- end }}
+{{- if .JavaScript }}
   NODE_VERSION: "{{ .Tools.Node }}"
+{{- end }}
+{{- if .Python }}
   PYTHON_VERSION: "{{ .Tools.Python}}"
+{{- end }}
   SPIN_VERSION: "{{ .Tools.Spin }}"
   {{- range .EnvironmentVariables }}
   {{ .Key }}: "{{ .Value }}"
@@ -65,7 +73,7 @@ jobs:
       - name: Install Spin
         uses: fermyon/actions/spin/setup@v1
         with:
-{{- if ne .ToolVersions.Spin "" }}
+{{- if ne .Tools.Spin "" }}
           version: "{{ `${{ env.SPIN_VERSION }}` }}"
 {{- end }}
           plugins: {{ .SpinPlugins }}
