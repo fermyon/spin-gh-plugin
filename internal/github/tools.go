@@ -13,7 +13,7 @@ func DefaultTools() Tools {
 	return Tools{
 		Rust:   "1.80.1",
 		Go:     "1.23.2",
-		TinyGo: "0.33.0",
+		TinyGo: "v0.33.0",
 		Python: "3.13.0",
 		Node:   "22",
 		Spin:   "",
